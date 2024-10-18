@@ -38,7 +38,7 @@ function FindProxyForURL(url) {
   url = url.toLowerCase();
   
   // Check if the requested URL is in the blocked list
-  if (url.includes(blockedUrla)) {
+  if (url.includes(blockedUrls)) {
     return blackhole; // Redirect to a local proxy or simply block
   }
 
