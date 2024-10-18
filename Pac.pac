@@ -77,7 +77,7 @@ function FindProxyForURL(url, host) {
   }
 
   // Block specific URLs manually
-  if (blockedSites.indexOf(url) !== -1) {
+  if (blockedSites.indexOf(host) !== -1) {
     return blackhole;
   }
 
