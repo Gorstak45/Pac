@@ -40,18 +40,21 @@ function FindProxyForURL(url) {
   url = url.toLowerCase();
 
   // Check if the requested URL matches any blocked URLs for specific Discord channels
-  if (blockedUrls.some(blockedUrl => url === blockedUrl)) {
-    return blackhole; // Redirect to a local proxy or simply block
+  for (var i = 0; i < blockedUrls.length; i++) {
+    if (url === blockedUrls[i]) {
+      return blackhole; // Redirect to a local proxy or simply block
+    }
   }
 
-  // Extract the host from the URL for domain checking
-  var parsedUrl = new URL(url);
-  var host = parsedUrl.host; // Full host (e.g., "forum.hr")
-
-  // Check if the URL or host is in the blocked domains list
-  if (url.includes("forum.hr") || blockedDomains.some(blockedDomain => host === blockedDomain || host.endsWith("." + blockedDomain))) {
-    return blackhole; // Block the entire domain and its subpages
+  // Check if the requested URL is for any blocked domain or its subpages
+  for (var j = 0; j < blockedDomains.length; j++) {
+    if (url.indexOf(blockedDomains[j]) !== -1) {
+      return blackhole; // Block the entire domain and its subpages
+    }
   }
+
+  // Extract the host for ad blocking
+  var host = url.split("/")[2]; // Get the host from the URL
 
   // Block ads using regular expressions
   if (adRegex.test(host)) {
