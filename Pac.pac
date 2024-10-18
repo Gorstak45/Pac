@@ -19,7 +19,6 @@ var blockedDomains = [
     "dnevnik.hr",
     "novatv.dnevnik.hr",
     "novavideo.dnevnik.hr",
-    "forum.hr",
     "forum.pcekspert.com"
 ];
 
@@ -60,4 +59,3 @@ function FindProxyForURL(url) {
   // All else fails, just pass through
   return pass;
 }
-
