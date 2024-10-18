@@ -22,7 +22,7 @@ var adRegex = new RegExp(
 );
 
 // Define blocked URLs (exact matches)
-var blockedURLs = [
+  var blockedUrls = [
     "discord.com/channels/889102180332732436",
     "discord.com/channels/452237221840551938",
     "discord.com/channels/1128414431085346897",
@@ -55,20 +55,11 @@ function FindProxyForURL(url, host) {
     return pass;
   }
 
-  // Allow domains and sites explicitly from the whitelist
-  if (whitelist.length > 0 && whitelist.indexOf(host) !== -1) {
-    return pass;
-  }
-
-  // Ensure that blockedURLs is populated before checking against it
-  if (blockedURLs.length > 0) {
-    // Block specific URLs
-    for (var i = 0; i < blockedURLs.length; i++) {
-      // Check if the host or the full URL contains the blocked URL
-      if (host.indexOf(blockedURLs[i]) !== -1 || url.indexOf(blockedURLs[i]) !== -1) {
-        return blackhole;
+  // Check if the requested URL is in the blocked list
+  for (var i = 0; i < blockedUrls.length; i++) {
+      if (shExpMatch(url, "*" + blockedUrls[i] + "*")) {
+          return blackhole; // Redirect to a local proxy or simply block
       }
-    }
   }
 
   // Block ads using regular expressions
