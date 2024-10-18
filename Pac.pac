@@ -48,3 +48,7 @@ function FindProxyForURL(url) {
   if (adRegex.test(host)) {
     return blackhole;
   }
+ 
+// All else fails, just pass through
+  return pass;
+}
