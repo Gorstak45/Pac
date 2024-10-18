@@ -10,7 +10,7 @@ var adRegex = new RegExp(
 );
 
 // Define blocked URLs (exact matches)
-var blockedUrls = new Set([
+var blockedUrls = [
     "discord.com/channels/889102180332732436",
     "discord.com/channels/452237221840551938",
     "discord.com/channels/1128414431085346897",
@@ -32,7 +32,7 @@ var blockedUrls = new Set([
     "forum.hr",
     "forum.pcekspert.com"
     // Add more URLs as needed
-]);
+];
 
 function FindProxyForURL(url) {
   url = url.toLowerCase();
