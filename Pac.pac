@@ -33,12 +33,7 @@ var blockedURLs = [
     "discord.com/channels/246414844851519490",
     "discord.com/channels/240880736851329024",
     "reddit.com/r/croatia",
-    "reddit.com/r/hrvatska"
-// Add more URLs as needed
-];
-
-// Define blocked sites (exact domain matches)
-var blockedSites = [
+    "reddit.com/r/hrvatska",
     "instrumenttactics.com",
     "srce.unizg.hr",
     "rtl.hr",
@@ -48,7 +43,7 @@ var blockedSites = [
     "novavideo.dnevnik.hr",
     "forum.hr",
     "forum.pcekspert.com"
-// Add more sites as needed
+// Add more URLs as needed
 ];
 
 function FindProxyForURL(url, host) {
@@ -74,11 +69,6 @@ function FindProxyForURL(url, host) {
         return blackhole;
       }
     }
-  }
-
-  // Block specific URLs manually
-  if (blockedSites.indexOf(host) !== -1) {
-    return blackhole;
   }
 
   // Block ads using regular expressions
