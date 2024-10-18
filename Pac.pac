@@ -9,6 +9,20 @@ var adRegex = new RegExp(
   "i"
 );
 
+// Define blocked domains (for entire domains)
+var blockedDomains = [
+    "forum.hr",
+    "instrumenttactics.com",
+    "srce.unizg.hr",
+    "rtl.hr",
+    "hrt.hr",
+    "dnevnik.hr",
+    "novatv.dnevnik.hr",
+    "novavideo.dnevnik.hr",
+    "forum.hr",
+    "forum.pcekspert.com"
+];
+
 // Define blocked URLs (exact matches)
 var blockedUrls = [
     "discord.com/channels/889102180332732436",
@@ -20,26 +34,21 @@ var blockedUrls = [
     "discord.com/channels/731641286389661727",
     "discord.com/channels/246414844851519490",
     "discord.com/channels/240880736851329024",
-    "reddit.com/r/croatia",
-    "reddit.com/r/hrvatska",
-    "instrumenttactics.com",
-    "srce.unizg.hr",
-    "rtl.hr",
-    "hrt.hr",
-    "dnevnik.hr",
-    "novatv.dnevnik.hr",
-    "novavideo.dnevnik.hr",
-    "forum.hr",
-    "forum.pcekspert.com"
     // Add more URLs as needed
 ];
 
 function FindProxyForURL(url) {
   url = url.toLowerCase();
 
-  // Check if the requested URL is in the blocked list
-  if (blockedUrls.some(blockedUrl => url.includes(blockedUrl))) {
+  // Check if the requested URL matches any blocked URLs for specific Discord channels
+  if (blockedUrls.some(blockedUrl => url === blockedUrl)) {
     return blackhole; // Redirect to a local proxy or simply block
+  }
+
+  // Check if the requested URL is for any blocked domain or its subpages
+  var domainBlocked = blockedDomains.some(blockedDomain => url.includes(blockedDomain));
+  if (domainBlocked) {
+    return blackhole; // Block the entire domain and its subpages
   }
 
   // Block ads using regular expressions
@@ -51,3 +60,4 @@ function FindProxyForURL(url) {
   // All else fails, just pass through
   return pass;
 }
+
