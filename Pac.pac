@@ -1,5 +1,5 @@
 /*
-    AntiAd PAC v0.8.2 (beta)
+    Pac by Gorstak (beta)
     Updated to include additional domains, URLs, and regex patterns.
 */
 
