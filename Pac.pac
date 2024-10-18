@@ -1,5 +1,5 @@
 var pass = "DIRECT";
-var blackhole = "PROXY 127.0.0.1:3421";
+var blackhole = "PROXY 1.1.1.1:3421";
 
 // Regular expression patterns for popular ad domains and subdomains
 var adRegex = new RegExp(
