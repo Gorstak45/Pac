@@ -44,14 +44,15 @@ function FindProxyForURL(url) {
     return blackhole; // Redirect to a local proxy or simply block
   }
 
-  // Check if the requested URL is for any blocked domain or its subpages
-  var domainBlocked = blockedDomains.some(blockedDomain => url.includes(blockedDomain));
-  if (domainBlocked) {
+  // Extract the host from the URL for domain checking
+  var host = new URL(url).host;
+
+  // Check if the host is in the blocked domains list
+  if (blockedDomains.some(blockedDomain => host === blockedDomain || host.endsWith("." + blockedDomain))) {
     return blackhole; // Block the entire domain and its subpages
   }
 
   // Block ads using regular expressions
-  var host = new URL(url).host; // Ensure host is derived from the URL
   if (adRegex.test(host)) {
     return blackhole;
   }
@@ -59,3 +60,4 @@ function FindProxyForURL(url) {
   // All else fails, just pass through
   return pass;
 }
+
