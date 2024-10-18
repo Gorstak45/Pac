@@ -44,13 +44,12 @@ function FindProxyForURL(url) {
     return blackhole; // Redirect to a local proxy or simply block
   }
 
-  // Extract the host and pathname from the URL for domain checking
+  // Extract the host from the URL for domain checking
   var parsedUrl = new URL(url);
   var host = parsedUrl.host; // Full host (e.g., "forum.hr")
-  var pathname = parsedUrl.pathname; // Path (e.g., "/somepage")
 
-  // Check if the host is in the blocked domains list
-  if (blockedDomains.some(blockedDomain => host === blockedDomain || host.endsWith("." + blockedDomain))) {
+  // Check if the URL or host is in the blocked domains list
+  if (url.includes("forum.hr") || blockedDomains.some(blockedDomain => host === blockedDomain || host.endsWith("." + blockedDomain))) {
     return blackhole; // Block the entire domain and its subpages
   }
 
