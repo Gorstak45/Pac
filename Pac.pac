@@ -36,13 +36,10 @@ var blockedUrls = new Set([
 
 function FindProxyForURL(url) {
   url = url.toLowerCase();
-  var host = url.split("/")[2]; // Extract the host from the URL
-
+  
   // Check if the requested URL is in the blocked list
-  for (var blockedUrl of blockedUrls) {
-      if (url.includes(blockedUrl)) {
-          return blackhole; // Redirect to a local proxy or simply block
-      }
+  if (url.includes(blockedUrl)) {
+    return blackhole; // Redirect to a local proxy or simply block
   }
 
   // Block ads using regular expressions
