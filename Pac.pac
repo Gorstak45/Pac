@@ -1,17 +1,5 @@
-// If you're not using a proxy, set: pass = "DIRECT"
-// If you are using a proxy, set: pass = "PROXY hostname:port"
 var pass = "DIRECT";
-
-// For use with BlackHole Proxy, set: blackhole = "PROXY 127.0.0.1:3421"
-// For use with a local http server, set: blackhole = "PROXY 127.0.0.1:80"
-// Otherwise use: blackhole = "PROXY 0.0.0.0"
 var blackhole = "PROXY 127.0.0.1:3421";
-
-// To autostart with the browser set to 1
-var isEnabled = 1;
-
-// Whitelist domains (these are allowed no matter what)
-var whitelist = [];
 
 // Regular expression patterns for popular ad domains and subdomains
 var adRegex = new RegExp(
@@ -46,14 +34,8 @@ var adRegex = new RegExp(
 // Add more URLs as needed
 ];
 
-function FindProxyForURL(url, host) {
-  host = host.toLowerCase();
+function FindProxyForURL(url) {
   url = url.toLowerCase();
-
-  // Normal passthrough if AntiAd is disabled
-  if (!isEnabled) {
-    return pass;
-  }
 
   // Check if the requested URL is in the blocked list
   for (var i = 0; i < blockedUrls.length; i++) {
@@ -66,7 +48,3 @@ function FindProxyForURL(url, host) {
   if (adRegex.test(host)) {
     return blackhole;
   }
-
-  // All else fails, just pass through
-  return pass;
-}
