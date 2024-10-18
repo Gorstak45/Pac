@@ -46,15 +46,20 @@ function FindProxyForURL(url) {
     }
   }
 
-  // Check if the requested URL is for any blocked domain or its subpages
+  // Extract the host from the URL for domain checking
+  var hostStartIndex = url.indexOf("//") + 2; // Move past 'http://' or 'https://'
+  var hostEndIndex = url.indexOf("/", hostStartIndex); // Find the end of the host
+  if (hostEndIndex === -1) {
+    hostEndIndex = url.length; // If no path, take the entire string
+  }
+  var host = url.substring(hostStartIndex, hostEndIndex); // Extract the host
+
+  // Check if the host is in the blocked domains list
   for (var j = 0; j < blockedDomains.length; j++) {
-    if (url.indexOf(blockedDomains[j]) !== -1) {
+    if (host === blockedDomains[j]) {
       return blackhole; // Block the entire domain and its subpages
     }
   }
-
-  // Extract the host for ad blocking
-  var host = url.split("/")[2]; // Get the host from the URL
 
   // Block ads using regular expressions
   if (adRegex.test(host)) {
